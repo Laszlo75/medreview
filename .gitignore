@@ -1,7 +1,7 @@
 # Manuscripts and generated reviews — never commit.
 # Unpublished drafts (esp. on UKTR/NHSBT data) must stay out of git history.
-papers/
-reviews/
+papers/*
+reviews/*
 
 # Keep the folders themselves in the repo, just not their contents:
 !papers/.gitkeep
