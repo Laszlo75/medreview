@@ -42,6 +42,53 @@ Report only unmet/partial items and real inconsistencies. Don't list every
 
 Anchor every finding to a location and quote. Recompute numbers you flag.
 
+## Before you claim something is absent
+
+Marking a checklist item `unmet` because you could not find it is an
+absence claim, and it's different from marking it `unmet` because the
+manuscript addresses it inadequately (e.g., a flow diagram exists but its
+numbers don't add up — that's anchored to a quote, not an absence). Before
+marking an item `unmet`/`partial` on the grounds that the manuscript never
+addresses it:
+
+1. **Re-grep for it under its synonyms and likely locations.** Reporting
+   items often live in unexpected places — flow-diagram numbers can be
+   scattered through prose instead of a figure; a consent statement can sit
+   in an "Ethics Statement" far from Methods. Examples:
+   - "no flow diagram" -> search for: flow diagram, CONSORT diagram, STROBE
+     flow, screened, excluded, enrolled, eligible, Figure (near the
+     Methods/Results boundary).
+   - "no consent statement" -> search for: consent, assent, waiver,
+     opt-out, REC, IRB, ethics committee.
+   - "data linkage not described" -> search for: linked, linkage, registry,
+     data source, extracted from, obtained from.
+2. **Record what you searched for** in `absence_checked_terms` on that
+   finding.
+3. **Tag it** `basis: absence`. Findings anchored to a verbatim quote (the
+   usual case — the item is addressed, just poorly) keep `basis: quote` —
+   set one or the other on every finding, not just the risky-looking ones.
+   If the status you assigned rests partly on a quote and partly on
+   something you couldn't find, tag `basis: absence` and mark which clause
+   in `issue` is the absence limb.
+4. **Downgrade confidence if you couldn't check thoroughly** (e.g. a
+   supplementary file wasn't provided, or a table's structure was unclear
+   in the extracted text) — set `confidence: low` and say why in `notes`.
+
+A checklist item that is genuinely unaddressed is still `unmet` — this
+doesn't soften real gaps. It means the reader can trust "unmet" means you
+looked, not that the extraction missed it.
+
+## Severity
+
+`major` — the checklist gap would change a reader's inference about the
+result (e.g., conceals a selection effect, hides a denominator problem) or
+is an objective inconsistency (numbers that don't match across
+abstract/results/tables). `minor` — everything else, including most
+reporting-completeness gaps taken in isolation (a missing flow diagram, an
+unstated recruitment window, unstated data provenance) — these matter for
+reproducibility but don't by themselves change how to read the result.
+Promote to major only if you can say what inference the gap would flip.
+
 ## Output format (return EXACTLY this)
 
 ```yaml
@@ -60,6 +107,8 @@ findings:
     suggested_fix: "Provide the extraction definition (fields, filters,
       date logic), ideally as a supplementary appendix."
     confidence: high | medium | low
+    basis: quote | absence   # "absence" only if you marked status unmet/partial because you could not find the item, not because it's inadequately addressed
+    absence_checked_terms: ["flow diagram", "excluded", "screened"]  # only present when basis is "absence"
 consistency_issues:
   - location: "Abstract vs Table 2"
     detail: "Abstract states n=1,204; Table 2 rows sum to 1,198"

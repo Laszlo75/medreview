@@ -63,6 +63,49 @@ quote or a specific table cell. If a concern doesn't survive a second pass of
 reasoning, drop it. Recall matters here, but every reported item must be
 concrete and actionable.
 
+## Before you claim something is absent
+
+Some findings assert that something is missing — "the PH assumption was
+never tested," "no power calculation is reported," "competing risks are not
+addressed." These are a different kind of claim from a finding anchored to
+a quote: you are asserting a negative from your own read of the extracted
+text, and missing something is a known failure mode (it may be in a table,
+a footnote, a supplementary file, or worded differently from what you
+searched for).
+
+Before writing a finding whose evidence is "X does not appear / is not
+reported / is never stated":
+
+1. **Re-grep for it under its synonyms**, not just the term you first
+   thought of. Examples for common statistical claims:
+   - "PH never tested" -> search for: Schoenfeld, cox.zph, proportional
+     hazards, PH assumption, log-log, time-varying, Grambsch.
+   - "no power calculation" -> search for: power, sample size calculation,
+     a priori, minimum detectable, detectable difference, precision.
+   - "competing risks not handled" -> search for: competing risk,
+     Fine-Gray, subdistribution, cause-specific, cumulative incidence,
+     censor.
+   - "clustering not accounted for" -> search for: frailty, random effect,
+     cluster, robust standard error, GEE, multilevel, hierarchical.
+2. **Record what you searched for** in `absence_checked_terms` on that
+   finding — the literal strings/synonyms you grepped or scanned for.
+3. **Tag the finding** `basis: absence`. Findings anchored to a verbatim
+   quote keep `basis: quote` — every finding must set one or the other, not
+   just findings you think are risky. If a finding mixes a quote-anchored
+   claim with an absence claim, tag the whole finding `basis: absence` —
+   err toward flagging — and mark within `issue`/`evidence` which specific
+   clause is the absence limb (e.g. prefix it: "Not found anywhere in the
+   manuscript (checked: ...):").
+4. **Downgrade confidence if your search was incomplete** — e.g. you
+   couldn't read a supplementary file, a scanned table, or a figure. Set
+   `confidence: low` and say why in `notes`. Do not assert absence at
+   `high` confidence from a partial read.
+
+This is not a reason to go easier on real gaps — a genuinely untested PH
+assumption on a result the paper leans on is still a serious finding. It
+means the finding must show its work: what you looked for, not just that
+you didn't see it.
+
 ## Output format (return EXACTLY this)
 
 ```yaml
@@ -81,6 +124,8 @@ findings:
     author_question: "Was death treated as a competing event? Please report a
       Fine–Gray sensitivity analysis."
     confidence: high | medium | low
+    basis: quote | absence   # "absence" if the evidence is "X is not reported/stated"; see "Before you claim something is absent" above
+    absence_checked_terms: ["Schoenfeld", "cox.zph", "proportional hazards", "PH assumption"]  # only present when basis is "absence"
 checklist_flags:
   - "TRIPOD+AI 10b: calibration not reported"
 verified_sound:
@@ -88,6 +133,14 @@ verified_sound:
 notes: ""
 ```
 
-Severity: critical = the headline estimate is probably biased or
-uninterpretable; major = important analytic gap, likely fixable with
-reanalysis; minor = reporting/rigour weakness.
+Severity: `critical` = the headline estimate is probably biased or
+uninterpretable, or a governance requirement is absent. `major` = the gap
+would change a reader's inference about the result — its direction,
+magnitude, or how far to trust it — or it is an objective error in a
+reported number. `minor` = a real gap that, on present evidence, would not
+change the inference (most reporting-completeness gaps belong here; a gap
+you yourself describe as "likely small in magnitude" or "a transparency
+issue, not a wrong-method error" is minor, not major — say so and grade it
+that way). When genuinely unsure, grade minor — the synthesiser cannot
+recover a finding you underrate, but an oversold major dilutes the ones
+that matter downstream.

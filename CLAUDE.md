@@ -29,8 +29,9 @@ Every clinical finding is framed as a question, never a verdict.
 ## Conventions
 - Manuscripts in `papers/`, outputs in `reviews/<paper-name>/`.
 - Reviewers are read-only; only the synthesizer writes (and it inherits MCP).
-- Every finding: exact location + verbatim quote + evidence + severity +
-  confidence. No anchor → discard.
+- Every finding: exact location + verbatim quote (or, for basis: absence
+  findings, the terms searched for) + evidence + severity + confidence +
+  basis. No anchor → discard.
 - Reporting checklists in `checklists/` (RECORD, TRIPOD+AI provided; add
   STROBE/CONSORT/PRISMA/STARD as needed). `reporting-reviewer` reads these.
 - This is a **Role 1** tool (author-side, pre-submission). Not for producing

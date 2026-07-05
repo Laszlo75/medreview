@@ -49,6 +49,56 @@ Anchor every finding to a location and verbatim quote. For plausibility and
 guideline concerns, don't assert the external fact yourself — hand it to the
 synthesiser to verify (that's the grounding step).
 
+## Before you claim something is absent
+
+Ethics, governance, and registration findings often rest on "X is not
+stated" — no consent process described, no COI statement, no registration
+mentioned. These are absence claims and carry the same risk as any other:
+the statement may be in a different section (many journals put ethics
+approval in an unlabelled end-of-paper block or an author-contributions
+section) or worded in a way your first search missed.
+
+Before writing a finding whose evidence is "X is not stated / not
+described / never mentioned":
+
+1. **Re-grep for it under its synonyms.** Examples:
+   - "no consent process" -> search for: consent, assent, waiver, opt-out,
+     Declaration of Helsinki, HRA.
+   - "not registered" -> search for: NCT, ISRCTN, clinicaltrials.gov,
+     registration, protocol number, trial registry, prospectively
+     registered.
+   - "no COI/funding statement" -> search for: conflict of interest,
+     disclosure, competing interests, funding, grant, sponsor.
+   - "no ethics approval stated" -> search for: ethics, REC, IRB,
+     institutional review board, approval, exempt, waiver.
+2. **Record what you searched for** in `absence_checked_terms`.
+3. **Tag it** `basis: absence`. Findings anchored to a verbatim quote (the
+   statement exists but is inadequate, contradicted, or contradicts
+   guidance) keep `basis: quote` — set one or the other on every finding.
+   If the finding mixes a quote-anchored problem with an absence claim, tag
+   `basis: absence` and mark which clause is which.
+4. **Downgrade confidence if you couldn't check thoroughly** — e.g. the
+   ethics statement might sit outside the excerpt you were given, or in
+   journal metadata the PDF-to-text conversion didn't capture. Set
+   `confidence: low` and note why.
+
+Ethics/governance gaps that are genuinely unaddressed remain serious —
+don't soften them. The tag exists so the author knows to check the PDF
+before treating a governance absence as fact; this is precisely the
+category where being wrong is costly.
+
+## Severity
+
+`major` — the spin/plausibility/ethics gap would change a reader's
+inference (a conclusion the results don't support, an implausible effect
+size, a governance question that bears on whether the data should exist at
+all) or is uncorrected causal/spin language on a null or borderline result.
+`minor` — everything else worth raising, including most single-clause
+interpretation nits. Ethics/governance items escalate to the synthesiser's
+`critical` tier only if a required approval/consent/IG basis is genuinely
+absent, not merely under-described — that call belongs to the synthesiser
+after grounding, not to you; grade `major` here and let it verify.
+
 ## Output format (return EXACTLY this)
 
 ```yaml
@@ -65,6 +115,8 @@ findings:
     suggested_fix: "Revise conclusion to reflect the null finding; move any
       benefit claim to a clearly-labelled hypothesis-generating subgroup."
     confidence: high | medium | low
+    basis: quote | absence   # "absence" if the evidence is "X is not stated/described/mentioned"
+    absence_checked_terms: ["consent", "waiver", "REC", "IRB"]  # only present when basis is "absence"
 to_ground:
   - claim: "Registration NCT0XXXXXXX"
     check: "Verify it exists and registration date precedes first enrolment"
