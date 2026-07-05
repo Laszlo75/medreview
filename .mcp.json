@@ -1,0 +1,17 @@
+{
+  "//": "Project MCP servers for the grounding stage. These are the remote connectors used by review-synthesizer. Auth is handled by Claude Code's connector flow (run `claude mcp add` or authenticate via /mcp on first use). Confirm exact server names — the synthesizer inherits whatever is connected, so names need not be hard-coded anywhere.",
+  "mcpServers": {
+    "pubmed": {
+      "type": "http",
+      "url": "https://pubmed.mcp.claude.com/mcp"
+    },
+    "clinical-trials": {
+      "type": "http",
+      "url": "https://hcls.mcp.claude.com/clinical_trials/mcp"
+    },
+    "scholar-gateway": {
+      "type": "http",
+      "url": "https://connector.scholargateway.ai/mcp"
+    }
+  }
+}

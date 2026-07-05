@@ -1,0 +1,26 @@
+# Manuscripts and generated reviews — never commit.
+# Unpublished drafts (esp. on UKTR/NHSBT data) must stay out of git history.
+papers/
+reviews/
+
+# Keep the folders themselves in the repo, just not their contents:
+!papers/.gitkeep
+!reviews/.gitkeep
+
+# Visible-mirror scaffolding used only to work around hidden-file extraction.
+# The real config is .claude/ and .mcp.json, which ARE tracked (see below).
+setup/
+install.sh
+mcp.json
+
+# Python / tooling cruft
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# Do NOT ignore the pipeline itself — force-track the dotfiles so a fresh
+# clone is immediately runnable:
+!.claude/
+!.claude/**
+!.mcp.json
