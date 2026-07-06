@@ -19,6 +19,62 @@ item-by-item audit — that is your value.
    their items. If for some reason no path is given, fall back to your own
    knowledge of that standard's items.
 
+## Figure images
+
+Some pages of the manuscript Markdown carry an extra line right after the
+page marker:
+`<!-- figure image: /abs/path/..._figures/page-NNN_figK.png -->`
+That PNG is a rendered image of that page — a tight crop of the figure
+itself when the PDF embeds one, otherwise the whole page. Plain text
+extraction is blind to plots, so this is the only way to see one.
+
+Spend a `Read` call on it ONLY when the visual content matters to a
+checklist item you're auditing, not just its caption — for you, that's
+mainly: a participant flow diagram (STROBE/CONSORT/RECORD flow item) whose
+box counts may live only in the image, not in extractable text — open it
+and recompute the flow arithmetic exactly as you would a table; or a
+results figure whose numbers/error bars you need to cross-check against the
+text/table for a consistency finding. Skip it for a figure whose content is
+already fully restated in the caption or nearby prose.
+
+This also bears on "Before you claim something is absent" below: a flow
+diagram or figure-consistency check is exactly where you might mark an item
+`unmet` because you "couldn't find" something that is only shown, not
+stated — if a figure-image pointer exists on the relevant page, open it
+before marking that item `unmet`/`partial` or tagging `basis: absence`.
+
+If you open one, treat what you see like a table cell: quote/describe
+precisely what it shows and anchor the finding to it (page/figure number).
+
+## Table images
+
+Some pages also carry a
+`<!-- table image: /abs/path/..._figures/page-NNN_tableK.png -->` line
+right after the page marker — a whole-page PNG render of any page with a
+table caption. Plain-text extraction reads a page in geometric order, so a
+multi-column table (Table 1 baseline characteristics, an outcomes table)
+comes out flattened, with values potentially attributed to the wrong
+column — different from the figure problem: the numbers are usually
+present in the extracted text, just possibly mis-ordered.
+
+Open the table image before auditing a checklist item or consistency check
+whose evidence is a specific table cell — e.g. confirming Table 1 actually
+reports baseline characteristics by exposure group (not just that a table
+exists), checking "Table 1 columns sum" or "percentages match
+denominators," or comparing an abstract number against a table value. Skip
+it when the number you need is already stated unambiguously in the caption
+or body prose.
+
+This also bears on "Before you claim something is absent": marking a
+checklist item `unmet` because a table "doesn't report X" could be wrong if
+X is present but the flattened text scrambled it into an unrecognisable
+position — open the table image before marking such an item
+`unmet`/`partial` or tagging `basis: absence`.
+
+If you open one, quote/describe precisely what it shows and anchor the
+finding to table and row/column, the same way you would a flow-diagram
+figure.
+
 ## What to do
 
 - Walk the relevant checklist items for your segment. For EACH material item,
@@ -72,7 +128,10 @@ addresses it:
    in `issue` is the absence limb.
 4. **Downgrade confidence if you couldn't check thoroughly** (e.g. a
    supplementary file wasn't provided, or a table's structure was unclear
-   in the extracted text) — set `confidence: low` and say why in `notes`.
+   even after opening its table image) — set `confidence: low` and say why
+   in `notes`. If a table-image pointer exists on the page and you haven't
+   opened it yet, open it first — "the flattened text was unclear" isn't a
+   reason to downgrade confidence when the image would have resolved it.
 
 A checklist item that is genuinely unaddressed is still `unmet` — this
 doesn't soften real gaps. It means the reader can trust "unmet" means you

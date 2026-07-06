@@ -46,14 +46,27 @@ connectors (PubMed, Clinical Trials, Scholar Gateway) and Write. Use them.
    - **Retractions**: quick check whether the paper or a key cited reference
      appears on Retraction Watch / PubPeer.
    - **Critical/major statistical findings**: re-read the quoted manuscript
-     text and confirm the quote is real and the objection holds. If a finding
-     fails re-examination, DEMOTE it to "Unconfirmed / demoted findings" —
-     never delete silently.
+     text and confirm the quote is real and the objection holds. If the
+     quote is a table cell value, re-reading the same flattened text is not
+     independent verification of a column/row attribution — if a
+     `<!-- table image: ... -->` pointer exists on that page, open it and
+     confirm the value against the image instead. If a finding fails
+     re-examination, DEMOTE it to "Unconfirmed / demoted findings" — never
+     delete silently.
    - **Absence-based findings** (`basis: absence` in a reviewer's YAML):
      before accepting one, re-run the search yourself against the full
      manuscript you were given, using the reviewer's `absence_checked_terms`
-     plus at least one synonym of your own. If you find the thing the
-     reviewer says is missing, DEMOTE the finding to "Unconfirmed / demoted
+     plus at least one synonym of your own. If the absence concerns
+     something a figure could show (a calibration/ROC plot, a flow
+     diagram's box counts, a forest plot) and a
+     `<!-- figure image: ... -->` pointer exists on the relevant page, open
+     it too before accepting the claim. Likewise, if the absence concerns a
+     value that could be sitting in a table whose flattened text just
+     extracted in scrambled column order (a subgroup n, an events-per-
+     variable count, a baseline characteristic), and a
+     `<!-- table image: ... -->` pointer exists on the relevant page, open
+     it too before accepting the claim. If you find the thing the reviewer
+     says is missing, DEMOTE the finding to "Unconfirmed / demoted
      findings," noting what you found and where — this is not a minor
      correction, it means the absence claim was wrong. If you confirm the
      absence, keep the `basis: absence` tag and route it to "Verify against

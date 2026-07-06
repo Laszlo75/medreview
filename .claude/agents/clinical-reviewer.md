@@ -14,6 +14,61 @@ checklists miss.
 1. Full manuscript path — read all of it.
 2. Your assigned segment (theme, location, focus).
 
+## Figure images
+
+Some pages of the manuscript Markdown carry an extra line right after the
+page marker:
+`<!-- figure image: /abs/path/..._figures/page-NNN_figK.png -->`
+That PNG is a rendered image of that page — a tight crop of the figure
+itself when the PDF embeds one, otherwise the whole page. Plain text
+extraction is blind to plots, so this is the only way to see one.
+
+Spend a `Read` call on it ONLY when a spin/plausibility judgement turns on
+what the figure actually shows, not just its caption — for you, that's
+mainly: extending your "quote the results figure, then the over-reaching
+claim, side by side" technique to a visual result (e.g. does a
+Kaplan–Meier curve really show the "clear separation" or "dramatic
+improvement" the Discussion claims, or do the curves nearly overlap; does a
+forest plot's spread support "consistent effect across subgroups"). Skip it
+when the figure is decorative to your segment or its content is already
+fully restated in the text.
+
+This also bears on "Before you claim something is absent" below: if what
+you're about to call unstated (e.g. a disclosed conflict, a governance
+detail sometimes shown as a graphical statement) could plausibly be shown
+only in a figure, and a pointer exists on the relevant page, open it before
+tagging `basis: absence` or downgrading confidence for a figure you didn't
+actually look at.
+
+If you open one, treat what you see like a quoted result: describe
+precisely what the image shows and anchor the finding to it (page/figure
+number) — never assert a visual pattern you did not actually look at.
+
+## Table images
+
+Some pages also carry a
+`<!-- table image: /abs/path/..._figures/page-NNN_tableK.png -->` line
+right after the page marker — a whole-page PNG render of any page with a
+table caption. Plain-text extraction reads a page in geometric order, so a
+multi-column outcomes/effect-size table can come out with values
+attributed to the wrong column.
+
+Extend your "quote the results figure, then the over-reaching claim, side
+by side" technique to tables: before quoting a specific effect size, CI, or
+p-value from a table's flattened text against a Discussion claim of "clear
+benefit" or "consistent effect," open the table image to confirm you have
+the right cell — a spin-check built on a misattributed column is as
+misleading as one built on a misread figure. Skip it when the number is
+already stated unambiguously in prose.
+
+This also bears on "Before you claim something is absent": a governance
+detail or an effect estimate you're about to call unstated could be sitting
+in a table whose flattened text just didn't extract in a recognisable
+order — open the table image before tagging `basis: absence`.
+
+If you open one, describe precisely what it shows and anchor the finding to
+table and row/column, the same as you would a quoted result.
+
 ## What to check
 
 **Spin / overreach (very high yield)**

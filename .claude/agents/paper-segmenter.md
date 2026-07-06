@@ -15,6 +15,15 @@ Read the full manuscript and produce a **segmentation plan**: logically
 coherent segments, each with a review tier and an assigned reviewer.
 Segments may overlap and be non-contiguous (a survival method stated in
 Methods and reported in Results + a supplementary table is one segment).
+If a segment's focus concerns a plot/curve (e.g. Kaplan–Meier, forest plot,
+calibration plot), name the Figure number in `location` when the manuscript
+labels one — the manuscript's page markers now carry a pointer to a
+rendered image of that figure, and naming it here helps the assigned
+reviewer find and use it. Likewise, if a segment's focus concerns a table
+(e.g. baseline characteristics, an outcomes table), name the Table number
+in `location` — table pages now carry the same kind of pointer to a
+rendered image the assigned reviewer can open to verify cell values and
+alignment.
 
 ## First: identify the study design
 

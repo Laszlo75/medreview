@@ -24,6 +24,73 @@ questions the author must answer.
 1. Full manuscript path — read all of it for context.
 2. Your assigned segment (theme, location, focus) — scrutinise only this.
 
+## Figure images
+
+Some pages of the manuscript Markdown carry an extra line right after the
+page marker:
+`<!-- figure image: /abs/path/..._figures/page-NNN_figK.png -->`
+That PNG is a rendered image of that page — a tight crop of the figure
+itself when the PDF embeds one, otherwise the whole page (for figures drawn
+as vector paths with no embeddable raster). Plain text extraction is blind
+to plots, so this is the only way to actually see what a chart shows.
+
+Spend a `Read` call on it ONLY when your segment's focus needs the visual
+pattern, not just the numbers already in the caption/text — for you, that's
+mainly: Kaplan–Meier / cumulative-incidence curves (does the separation
+match the claimed effect? do curves cross — a PH-assumption red flag? where
+do censoring marks cluster?), forest plots (which subgroup CIs cross the
+null; heterogeneity of point estimates across strata), calibration or ROC
+plots (deviation from the diagonal, not just the summary c-statistic), and
+residual/diagnostic plots (Schoenfeld residuals, QQ plots) — these often
+carry information no text in the manuscript restates. Skip it for a plain
+bar/column chart whose values are already stated in the caption or body
+text.
+
+This also bears on "Before you claim something is absent" below: if what
+you're about to call absent — a calibration/ROC plot, a PH-diagnostic plot —
+could plausibly exist only as a figure, and a figure-image pointer exists on
+the relevant page, open it before tagging `basis: absence` or writing
+`confidence: low` because you "couldn't see the figure." An unread pointer
+is not the same as an absent figure.
+
+If you open one, treat what you see like a table cell: describe precisely
+what the image shows and anchor the finding to it (page/figure number) —
+never assert a visual pattern you did not actually look at.
+
+## Table images
+
+Some pages also carry a
+`<!-- table image: /abs/path/..._figures/page-NNN_tableK.png -->` line
+right after the page marker — a whole-page PNG render of any page with a
+table caption. Plain-text extraction reads a page in geometric order, so a
+multi-column table's cell values come out flattened, with column and row
+association lost or scrambled — a different failure mode from the figure
+problem (blindness to a visual pattern); here the numbers usually ARE
+present in the extracted text, just possibly attributed to the wrong
+column.
+
+Open the table image before you rely on a cell value pulled from the
+flattened text for a computation in `evidence` — Table 1 baseline
+characteristics feeding a recomputed percentage, an outcomes table's event
+counts feeding an incidence or attributable-risk calculation, an
+events-per-variable count for a prediction model (see "Internal
+consistency" below). A recomputation built on a misattributed cell is a
+worse failure than an absence claim: it produces a confidently wrong
+number, not a flagged uncertainty. Treat the image as the source of truth
+for exact values and alignment; the flattened text is only good for a
+first pass / grep.
+
+This also bears on "Before you claim something is absent" below: if a
+statistic you're about to call unreported (no events-per-variable given, no
+subgroup n reported) could plausibly be sitting in a table whose text just
+didn't extract in a recognisable order, open the table image before
+tagging `basis: absence`.
+
+If you open one, treat what you see exactly like a table cell you read
+yourself: quote/describe the specific cell(s) and anchor the finding to
+table and row/column (e.g. "Table 2, ERAS-formal row, LOS column: 4.2
+days").
+
 ## High-yield checks (transplant / registry work especially)
 
 **Time-to-event**
